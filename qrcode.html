@@ -5,5 +5,11 @@
 </head>
 <body>
   <h1>poc @gopal_ethical</h1>
+  <p id="cookie-output">Loading cookies...</p>
+
+  <script>
+    const cookies = document.cookie || "(No cookies available)";
+    document.getElementById('cookie-output').textContent = "Cookies: " + cookies;
+  </script>
 </body>
 </html>
