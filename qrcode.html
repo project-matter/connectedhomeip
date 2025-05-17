@@ -1,15 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>POC</title>
+    <title>QR Code XSS Demonstration (Educational)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .warning {
+            color: red;
+            font-weight: bold;
+            border: 1px solid red;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        code {
+            background-color: #f0f0f0;
+            padding: 2px 5px;
+        }
+    </style>
 </head>
 <body>
-  <h1>poc @gopal_ethical</h1>
-  <p id="cookie-output">Loading cookies...</p>
+    <div class="warning">
+        WARNING: This is for educational purposes only. Never attempt XSS attacks on websites without explicit permission.
+    </div>
 
-  <script>
-    const cookies = document.cookie || "(No cookies available)";
-    document.getElementById('cookie-output').textContent = "Cookies: " + cookies;
-  </script>
+    <h1>QR Code XSS Demonstration</h1>
+    <p>This page simulates what could happen if a QR code URL parameter is not properly sanitized.</p>
+
+    <h2>Vulnerable URL Simulation</h2>
+    <p>The following link simulates a QR code URL that could trigger XSS if not properly handled:</p>
+    
+    <a href="#" id="demoLink">Click to simulate vulnerable QR code URL</a>
+
+    <h2>How It Works</h2>
+    <p>If a website takes the <code>data</code> parameter from the URL and inserts it directly into the page without sanitization, malicious JavaScript could execute.</p>
+
+    <p>For example, if the URL was:</p>
+    <code>https://project-matter.github.io/connectedhomeip/qrcode.html?data=&lt;script&gt;alert('XSS')&lt;/script&gt;</code>
+
+    <p>And the page did:</p>
+    <pre>
+// Vulnerable code example (DON'T DO THIS)
+document.getElementById('qrData').innerHTML = urlParams.get('data');
+    </pre>
+
+    <script>
+        // This is just a simulation for educational purposes
+        document.getElementById('demoLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('This would be the XSS payload executing if the site was vulnerable');
+            alert('In a real attack, this could steal cookies, redirect the user, etc.');
+        });
+    </script>
 </body>
 </html>
