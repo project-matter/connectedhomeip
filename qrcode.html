@@ -1,50 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>XSS Cookie Demonstration (Educational)</title>
+    <title>PoC</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        .warning { color: red; font-weight: bold; border: 1px solid red; padding: 10px; }
+        body { font-family: Arial; max-width: 600px; margin: 0 auto; padding: 20px; }
+        #demoLink { 
+            display: inline-block; 
+            padding: 10px 15px; 
+            background: #4285f4; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 4px; 
+        }
     </style>
 </head>
 <body>
-    <div class="warning">
-        <strong>WARNING:</strong> This is for educational purposes only.<br>
-        Never use XSS to access cookies on websites you don't own - it's illegal.
-    </div>
-
-    <h1>XSS Cookie Access Demo</h1>
-    <p>This simulates how an attacker could access cookies if a site is vulnerable to XSS.</p>
-
-    <!-- Simulated vulnerable page -->
-    <div id="qrData"></div>
+    <h1>POC by @gopal_ethical</h1>
+    <a href="#" id="demoLink">Click Here</a>
 
     <script>
-        // Simulate a vulnerable page that unsafely inserts URL parameters
-        const params = new URLSearchParams(window.location.search);
-        const qrData = params.get('data');
+        // Set sample cookies
+        document.cookie = "session_id=example_123; path=/";
+        document.cookie = "user_token=abc456; path=/";
         
-        // UNSAFE: Inserting unescaped user input (simulated vulnerability)
-        document.getElementById('qrData').innerHTML = qrData || 
-            "No malicious payload provided in URL";
-
-        // For demo purposes, we'll set a sample cookie
-        document.cookie = "demo_cookie=test_value; path=/";
-        
-        // This would be the malicious payload an attacker might use:
-        // ?data=<script>alert(document.cookie)</script>
+        document.getElementById('demoLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert("POC by @gopal_ethical");
+        });
     </script>
-
-    <h2>Try it safely:</h2>
-    <p>Add this to the URL (this demo is safe - it won't actually execute):</p>
-    <code>?data=&lt;script&gt;alert(document.cookie)&lt;/script&gt;</code>
-
-    <h2>How to Protect Against This:</h2>
-    <ul>
-        <li>Always sanitize user input with libraries like DOMPurify</li>
-        <li>Use Content Security Policy (CSP) headers</li>
-        <li>Set cookies with HttpOnly flag (blocks JavaScript access)</li>
-        <li>Use frameworks that auto-escape (React, Vue, Angular)</li>
-    </ul>
 </body>
 </html>
